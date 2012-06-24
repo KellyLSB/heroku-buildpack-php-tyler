@@ -18,7 +18,7 @@ NGINX_URL="https://s3.amazonaws.com/${S3_BUCKET}/nginx-${NGINX_VERSION}-heroku.t
 MCRYPT_URL="https://s3.amazonaws.com/${S3_BUCKET}/libmcrypt-${LIBMCRYPT_VERSION}.tar.gz"
 MEMCACHED_URL="https://s3.amazonaws.com/${S3_BUCKET}/libmemcached-${LIBMEMCACHED_VERSION}.tar.gz"
 PHP_URL="https://s3.amazonaws.com/${S3_BUCKET}/php-${PHP_VERSION}-with-fpm-heroku.tar.gz"
-NEWRELIC_URL="https://s3.amazonaws.com/${S3_BUCKET}/newrelic-${NEWRELIC_VERSION}-heroku.tar.gz"
+NEWRELIC_URL="https://s3.amazonaws.com/momentum-heroku/newrelic-${NEWRELIC_VERSION}-heroku.tar.gz"
 MONGO_URL="http://direct.robbiet.us/mongo.so"
 #
 
@@ -123,6 +123,11 @@ erb /app/vendor/nginx/conf/nginx.conf.erb > /app/vendor/nginx/conf/nginx.conf
 # Set NEWRELIC key
 if [ -x "/app/local/bin/newrelic-license" ]; then
 	/app/local/bin/newrelic-license
+fi
+
+# Set NEWRELIC app name
+if [ -x "/app/local/bin/newrelic-appname" ]; then
+	/app/local/bin/newrelic-appname
 fi
 
 touch /app/vendor/nginx/logs/access.log /app/vendor/nginx/logs/error.log /app/vendor/php/var/log/php-fpm.log /app/local/var/log/newrelic/newrelic-daemon.log /app/local/var/log/newrelic/php_agent.log
