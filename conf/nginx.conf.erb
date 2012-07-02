@@ -68,16 +68,6 @@ http {
       access_log   off;
     }
 
-    location / {
-      if (!-e /$request_filename) {
-        rewrite .* /runtime/startup.php last;
-    }
-
-    if ($uri = /) {
-        rewrite .* /runtime/startup.php last;
-      }
-    }
-
     location ~ .*\.php$ {
       try_files $uri =404;
       limit_conn phplimit 5; # limit to 5 concurrent users to PHP per IP.
